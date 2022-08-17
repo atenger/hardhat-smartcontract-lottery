@@ -30,7 +30,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         // fund the subscription, usually you need a real LINK token but not in a ock
         await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, VRF_SUB_FUND_AMOUNT)
     } else {
-        vrfCoordinatorV2 = networkConfig[chainId]["vrfCoordinatorV2"]
+        vrfCoordinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
 
         subscriptionId = networkConfig[chainId]["subscriptionId"]
     }
@@ -39,7 +39,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const gasLane = networkConfig[chainId]["gasLane"]
     const callbackGasLimit = networkConfig[chainId]["callbackGasLimit"]
     const interval = networkConfig[chainId]["interval"]
-    console.log("setting up the Args")
+
     const args = [
         vrfCoordinatorV2Address,
         entranceFee,
@@ -48,7 +48,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         callbackGasLimit,
         interval,
     ]
-    console.log(`vrfCoordinatorV2: ${vrfCoordinatorV2}`)
+    console.log(`vrfCoordinatorV2 address: ${vrfCoordinatorV2Address}`)
     const raffle = await deploy("Raffle", {
         from: deployer,
         args: args,

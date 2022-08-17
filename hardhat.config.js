@@ -44,6 +44,13 @@ module.exports = {
         timeout: 300000, // 300000 ms or 300 seconds max
     },
 
+    etherscan: {
+        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+        apiKey: {
+            rinkeby: ETHERSCAN_API_KEY,
+        },
+    },
+
     gasReporter: {
         enabled: false,
         outputFile: "gas-report.txt",
