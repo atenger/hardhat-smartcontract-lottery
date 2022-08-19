@@ -132,7 +132,7 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
                   const txResponse = await raffle.performUpkeep("0x") // emits requestId
                   const txReceipt = await txResponse.wait(1) // waits 1 block
                   const raffleState = await raffle.getRaffleState() // updates state
-                  const requestId = txReceipt.events[1].args.requestId
+                  const requestId = txReceipt.events[0].args.requestId
                   assert(raffleState == 1) // 0 = open, 1 = calculating
               })
 
@@ -144,8 +144,7 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
 
                   const txResponse = await raffle.performUpkeep("0x") // emits requestId
                   const txReceipt = await txResponse.wait(1) // waits 1 block
-                  const raffleState = await raffle.getRaffleState() // updates state
-                  const requestId = txReceipt.events[1].args.requestId
+                  const requestId = txReceipt.events[0].args.requestId
                   //console.log(`RequestID: ${requestId}`)
                   assert(requestId.toNumber() > 0)
               })
@@ -233,7 +232,7 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
                       const winnerStartingBalance = await accounts[1].getBalance()
 
                       await vrfCoordinatorV2Mock.fulfillRandomWords(
-                          txReceipt.events[1].args.requestId,
+                          txReceipt.events[0].args.requestId,
                           raffle.address
                       )
                   })

@@ -51,6 +51,18 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /* Events */
     event RaffleEnter(address indexed player);
     event RequestedRaffleWinner(uint256 indexed requestId);
+
+    event RandomWordsRequested(
+        bytes32 indexed keyHash,
+        uint256 requestId,
+        uint256 preSeed,
+        uint64 indexed subId,
+        uint16 minimumRequestConfirmations,
+        uint32 callbackGasLimit,
+        uint32 numWords,
+        address indexed sender
+    );
+
     event WinnerPicked(address indexed winner);
 
     /* Functions */
@@ -145,7 +157,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         );
 
         // This is redundant, b/c the VRF Coordinator function request random words emits request iD
-        emit RequestedRaffleWinner(requestId);
+        //emit RequestedRaffleWinner(requestId);
     }
 
     function fulfillRandomWords(
